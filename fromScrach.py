@@ -31,3 +31,15 @@ elif score >= 70:
     print("Grade: C")
 else:
     print("Grade: F")
+
+# Practice Exercises
+# Exercise 1: Basic Conditions
+# Create a program that checks if a number is positive, negative, or zero
+number = 7
+if number > 0:
+    print("The number is positive.")
+elif number < 0:
+    print("The number is negative.")
+else:
+    print("The number is zero.")
+
