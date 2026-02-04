@@ -12,3 +12,10 @@ is_student = True
 age = 18
 if age >= 18:
     print("You are an adult.")
+
+# The if-else Statement
+temperature = 25
+if temperature > 30:
+    print("It's hot outside.")
+else:
+    print("It's not too hot.")
