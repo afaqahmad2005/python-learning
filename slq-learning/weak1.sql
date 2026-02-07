@@ -29,3 +29,22 @@ VALUES
     ('STF010', 'Counselor', 'SCH002', 'Patricia', 'Thomas', 40, '1984-04-12', 'F', '2019-08-15', 'ADDR010');
 
 SELECT * FROM STAFF;
+
+
+-- REAL START
+
+CREATE DATABASE learning;
+USE learning;
+
+-- Ceate tale
+CREATE TABLE Employees(
+EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+FirstName VARCHAR(50) NOT NULL,
+LastName VARCHAR(50) NOT NULL,
+Emain VARCHAR(100) UNIQUE,
+Age INT CHECK(Age >= 18),
+Salary DECIMAL(10,2),
+HireDate DATE,
+DepartmentID INT
+);
+
