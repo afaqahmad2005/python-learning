@@ -48,3 +48,30 @@ HireDate DATE,
 DepartmentID INT
 );
 
+-- Add a new column
+ALTER TABLE Employees 
+ADD PhoneNumber VARCHAR(15);
+
+-- Modify coloumn datatype
+ALTER TABLE Employees
+MODIFY COLUMN Salary DECIMAL(12,2);
+
+-- Rename a column 
+ALTER TABLE Employees 
+RENAME COLUMN HireDate TO EmploymentDate;
+
+-- Drop a column 
+ALTER TABLE Employees
+DROP COLUMN PhoneNumber;
+
+-- Add a constraint
+ALTER TABLE Employees
+ADD CONSTRAINT CHK_Salary CHECK (Salary > 0);
+
+-- Add Foregin Key 
+ALTER TABLE Employees
+ADD FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID);
+
+-- Rename a Table
+ALTER TABLE Employees
+RENAME TO Staff;
