@@ -32,9 +32,10 @@ SELECT * FROM STAFF;
 
 
 -- REAL START
-
 CREATE DATABASE learning;
 USE learning;
+
+-- sys_configEmployeesStaffEmployees📌 PART 1: DDL (Data Definition Language)
 
 -- Ceate tale
 CREATE TABLE Employees(
@@ -94,3 +95,89 @@ TRUNCATE TABLE Employees;
 -- vs DELETE (DELETE can have WHERE clause, TRUNCATE cannot)
 DELETE FROM Employees; -- Slower, logs individual deletions
 TRUNCATE TABLE Employees; -- Faster, resets auto-increment
+
+-- 📌 PART 2: DML (Data Manipulation Language)
+
+-- ********** Insert *******
+
+-- Insert specific columns
+INSERT INTO Employees(FirstName, LastName, Age, Salary)
+VALUES ('Afaq', 'Ahmad', 22, 50.0);
+
+-- Insert all columns (must match order)
+INSERT INTO Employees
+VALUES (3, 'Jane', 'Smith', 'jane@email.com', 28, 60000.00, '2023-01-15', 2);
+
+-- Insert Multiple Rows
+INSERT INTO Employees (FirstName, LastName, Age, DepartmentID)
+VALUES 
+	('Mike', 'Johnson', 35, 1),
+    ('Sarah', 'Williams', 29, 2),
+    ('David', 'Brown', 42, 1);
+
+-- Insert from another table
+INSERT INTO Managers (Name, Department, Salary)
+SELECT FirstName, 'Sales', Salary * 1.1
+FROM Employees
+WHERE Age > 30;
+
+-- ********* Update ******
+
+SET SQL_SAFE_UPDATES = 0;
+
+-- Update single column for all rows 
+UPDATE Employees 
+SET Salary = Salary * 1.05; -- 5% raise for everyone
+
+-- Update with WHERE clause
+UPDATE Employees 
+SET Salary = 65000, DepartmentID = 3
+WHERE EmployeeID = 2;
+
+-- Update with Subquery
+UPDATE Employees
+SET Salary = (
+    SELECT avg_salary FROM (
+        SELECT AVG(Salary) AS avg_salary 
+        FROM Employees
+    ) AS temp
+)
+WHERE DepartmentID = 1;
+
+-- Use multiple conditions
+UPDATE Employees 
+SET Salary = Salary * 1.9
+WHERE Age > 40 AND DepartmentID = 2;
+
+-- ************* Delete **********
+
+-- Delete specific row
+DELETE FROM Employees
+WHERE EmployeeID = 101;
+
+-- Delete with multiple coditions
+DELETE FROM Employees
+WHERE Age < 25 AND Salary < 30000;
+
+-- Delete all rows (use TRUNCATE instead for performance)
+DELETE FROM Employees; -- Keeps structure, resets auto-increment in some DBs
+
+-- Delete with JOIN
+DELETE e
+FROM Employees e
+JOIN Departments d ON e.DepartmentID = d.DepartmentID
+WHERE d.DepartmentName = 'HR';
+
+
+
+
+
+
+SELECT * FROM Employees;
+
+
+
+
+
+
+
