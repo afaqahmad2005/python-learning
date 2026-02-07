@@ -85,3 +85,12 @@ DROP TABLE Employees;
 
 -- Delet if exit 
 DROP TABLE IF EXISTS Employees;
+
+-- ********** Truncate Table ********
+
+-- remove all data
+TRUNCATE TABLE Employees;
+
+-- vs DELETE (DELETE can have WHERE clause, TRUNCATE cannot)
+DELETE FROM Employees; -- Slower, logs individual deletions
+TRUNCATE TABLE Employees; -- Faster, resets auto-increment
