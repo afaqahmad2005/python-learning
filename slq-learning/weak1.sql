@@ -48,6 +48,8 @@ HireDate DATE,
 DepartmentID INT
 );
 
+-- ******** Alter Table *******
+
 -- Add a new column
 ALTER TABLE Employees 
 ADD PhoneNumber VARCHAR(15);
@@ -75,3 +77,11 @@ ADD FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID);
 -- Rename a Table
 ALTER TABLE Employees
 RENAME TO Staff;
+
+-- *********** Drop Table ************
+
+-- Delete table
+DROP TABLE Employees;
+
+-- Delet if exit 
+DROP TABLE IF EXISTS Employees;
