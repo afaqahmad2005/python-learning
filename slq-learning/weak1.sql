@@ -169,13 +169,89 @@ JOIN Departments d ON e.DepartmentID = d.DepartmentID
 WHERE d.DepartmentName = 'HR';
 
 
+-- 📌 PART 3: DQL (Data Query Language)
 
-
-
-
+-- ************ Select *************
+-- Select all comunms
 SELECT * FROM Employees;
 
+-- Select specific columns 
+SELECT FirstName, LastName, Salary FROM Employees;
 
+-- Select with expressions 
+SELECT FirstName, LastName, Salary, Salary * 0.10 AS Bonus, Salary * 12 AS AnualSalary FROM Employees;
+
+-- ************ Distinct ************
+-- Unique Departments
+SELECT DISTINCT DepartmentID FROM Employees;
+
+-- Unique Combinations
+SELECT DISTINCT FirstName, LastName FROM Employees;
+
+-- Count Unique Values
+SELECT COUNT(DISTINCT DepartmentID) AS UniqueDepartments FROM Employees;
+
+-- *********** Where **********
+-- Basic Conditions
+SELECT * FROM Employees
+WHERE Age > 30;
+
+-- Multiple Conditions
+SELECT * FROM Employees 
+WHERE DepartmentID = 2 AND Salary > 0;
+
+-- Text Matching
+SELECT * FROM Employees
+WHERE LastName = 'Ahmad';
+
+-- Not Condition
+SELECT * FROM Employees
+WHERE NOT DepartmentID = 3;
+
+-- ************ Like and WildCard
+-- Starts with J
+SELECT * FROM Employees
+WHERE FirstName LIKE 'A%';
+
+-- Ends with 'mad'
+SELECT * FROM Employees
+WHERE LastName LIKE '%mad';
+
+-- Conains 'f'
+SELECT * FROM Employees
+WHERE FirstName LIKE '%f%';
+
+-- Second letter is 'o'
+SELECT * FROM Employees 
+WHERE FirstName LIKE '_o%';
+
+-- Exactly 4 characters
+SELECT * FROM Employees
+WHERE FirstName LIKE '____';
+
+-- *********** IN & BETWEEN **************
+-- IN: Match list of values
+SELECT * FROM Employees 
+WHERE DepartmentID IN (1,2,5);
+
+-- IN with subquery
+SELECT * FROM Employees
+WHERE DepartmentID IN (
+    SELECT DepartmentID 
+    FROM Departments 
+    WHERE Location = 'New York'
+);
+
+-- BETWEEN: Range (inclusive)
+SELECT * FROM Employees
+WHERE Salary BETWEEN 40000 AND 60000;
+
+SELECT * FROM Employees
+WHERE HireDate BETWEEN '2023-01-01' AND '2023-12-31';
+
+-- NOT BETWEEN
+SELECT * FROM Employees
+WHERE Age NOT BETWEEN 25 AND 40;
 
 
 
