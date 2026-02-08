@@ -254,6 +254,108 @@ SELECT * FROM Employees
 WHERE Age NOT BETWEEN 25 AND 40;
 
 
+-- *********** AND, OR, NOT ************
+
+-- AND (Both conditions must be true)
+SELECT * FROM Employees 
+WHERE Age > 20 AND Salary > 50000;
+
+-- OR (At least one condition is true)
+SELECT * FROM Employees 
+WHERE DepartmentID = 1 OR DepartmentID = 3;
+
+-- Combination with parentheses 
+SELECT * FROM Employees 
+WHERE (Age > 20 AND Salary > 50000) OR (DepartmentID = 2);
+
+-- NOT with other operators 
+SELECT * FROM Employees
+WHERE NOT (Age < 25 OR Salary < 30000);
+
+-- Complex Example 
+SELECT * FROM Employees 
+WHERE (FirstName LIKE 'A%' OR FirstName LIKE 'S%')
+	AND Age BETWEEN 25 AND 45
+    AND NOT DepartmentID = 1;
+
+-- ********* Order By **********
+
+-- Ascending (default)
+SELECT * FROM Employees 
+ORDER BY LastName;
+
+-- Descinding 
+SELECT * FROM Employees
+ORDER BY Salary DESC;
+
+-- Multiple columns
+SELECT * FROM Employees
+ORDER BY DepartmentID ASC, LastName ASC, FirstName ASC;
+
+-- Order By column number
+SELECT FirstName, LastName, Salary FROM Employees
+ORDER BY 3 DESC; -- (Salary)
+
+-- Order By expressions
+SELECT FirstName, LastName, Salary FROM Employees
+ORDER BY Salary * 12 DESC; -- Annual Salary
+
+-- ********** LIMIT / TOP ************
+
+-- MySQL: LIMIT
+SELECT * FROM Employees
+ORDER BY Salary DESC
+LIMIT 5; -- Top 5 highest paid
+
+-- With offset (skip first N rows)
+SELECT * FROM Employees
+ORDER BY HireDate
+LIMIT 10 OFFSET 5; -- Rows 6-15
+
+-- Alternative syntax
+SELECT * FROM Employees
+LIMIT 5, 10; -- Skip 5, take 10
+
+-- ************* 📌 PART 4: Data Types ***********
+
+CREATE TABLE DataTypesDemo (
+    -- Numeric Types
+    ID INT PRIMARY KEY AUTO_INCREMENT,           -- Whole numbers
+    Age TINYINT,                                  -- -128 to 127
+    Price DECIMAL(10, 2),                         -- Fixed precision (10 digits, 2 decimal)
+    Salary FLOAT,                                 -- Approximate numbers
+    Rating DOUBLE(5,2),                           -- Double precision
+    
+    -- String Types
+    FirstName VARCHAR(50),                        -- Variable length string
+    LastName CHAR(50),                            -- Fixed length string
+    Email VARCHAR(100) UNIQUE,
+    Description TEXT,                             -- Large text
+    Bio LONGTEXT,                                 -- Very large text
+    
+    -- Date/Time Types
+    BirthDate DATE,                               -- YYYY-MM-DD
+    HireDateTime DATETIME,                        -- YYYY-MM-DD HH:MM:SS
+    LastLogin TIMESTAMP,                          -- Auto-updating timestamp
+    MeetingTime TIME,                             -- HH:MM:SS
+    YearOnly YEAR,                                -- YYYY
+    
+    -- Binary Types
+    ProfilePicture BLOB,                          -- Binary Large Object
+    Document LONGBLOB,
+    
+    -- Boolean (MySQL uses TINYINT(1))
+    IsActive BOOLEAN,                             -- TRUE or FALSE
+    IsManager TINYINT(1) DEFAULT 0,
+    
+    -- Other
+    JSONData JSON,                                -- JSON formatted data
+    ENUMField ENUM('Active', 'Inactive', 'Pending'),
+    SETField SET('Read', 'Write', 'Execute')
+);
+
+
+
 
 
 
