@@ -354,6 +354,164 @@ CREATE TABLE DataTypesDemo (
     SETField SET('Read', 'Write', 'Execute')
 );
 
+-- 📊 PART 1: Aggregate Functions
+
+-- *************** 1. COUNT() *************
+
+-- Count all rows 
+SELECT COUNT(*) AS TotalEmployees FROM Employees;
+
+-- Count NOT NULL values in a column
+SELECT COUNT(DepartmentID) AS EmployeesWithDept FROM Employees;
+
+-- Count DISTICT values 
+SELECT COUNT(DISTINCT DepartmentID) AS UniqueDepartment FROM Employees;
+
+-- Count with conditions
+SELECT COUNT(*) AS HighEarners FROM Employees
+WHERE Salary > 50000;
+
+-- **************** 2. SUM() ***************
+
+-- Total Salary Expenditure 
+SELECT SUM(Salary) AS TotalSalaryCost FROM Employees;
+
+-- SUM with codition
+SELECT SUM(Salary) AS SalesDeptSalary 
+FROM Employees
+WHERE DepartmentID = 2;
+
+-- SUM DISTINCT values (rarely used)
+SELECT SUM(DISTINCT Salary) AS SumOfUniqueSalaries FROM Employees;
+
+-- ******************** 3. AVG() ********************
+
+-- Average Salary 
+SELECT AVG(Salary) AS AvgSalary
+FROM Employees;
+
+-- Average with ROUND
+SELECT ROUND(AVG(Salary),2) 
+AS AvgSalaryRounded 
+FROM Employees;
+
+-- Average with condition
+SELECT AVG(Age) AS AvgAgeSales
+FROM Employees
+WHERE DepartmentID = 1; 
+
+-- Handle NULL values (NULLs are ignored in AVG)
+SELECT AVG(coalesce(Salary,0)) AS AvgWithNulls FROM Employees;
+
+-- ***************** 4. MIN() & MAX() ********************
+
+-- Minimum and Maximum Salary
+SELECT 
+	MIN(Salary) AS LowestSalary,
+    MAX(Salary) AS HighestSalary
+FROM Employees;
+
+-- Find oldest and youngest Employees
+SELECT
+	MIN(Age) AS YoungestAge,
+    MAX(Age) AS OldestAge
+FROM Employees;
+
+-- First and Last Hire Date 
+SELECT
+	MIN(HireDate) AS FistHire,
+    MAX(HireDate) AS LastHire
+FROM Employees;
+
+-- Minimum with condition
+SELECT MIN(Salary) AS MinSalaryInSale
+FROM Employees 
+WHERE DepartmentID = 1;
+
+-- *************** 5. Using Multiple Aggregate Functions ***************
+SELECT 
+	COUNT(*) AS TotalEmployees,
+    AVG(Salary) AS AverageSalary,
+    MIN(Salary) AS MinumumSalary,
+    MAX(Salary) AS MaximumSalary,
+    SUM(Salary) AS TotalSalaryCost,
+    MAX(HireDate) AS LatestHireDate
+FROM Employees;
+
+-- 📊 PART 2: GROUP BY
+
+-- ***************** Basic GROUP BY ******************
+
+-- Count Employees per department
+SELECT DepartmentID, COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY DepartmentID;
+    
+-- Average Salary per Department 
+SELECT 
+	DepartmentID, 
+    ROUND(AVG(Salary),2) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID
+ORDER BY AvgSalary DESC;
+
+-- Multiple grouping columns
+SELECT
+	DepartmentID,
+    Age,
+    COUNT(*) AS Count,
+    AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID, Age
+ORDER BY DepartmentID, Age;
+
+-- ****************** GROUP BY with WHERE ***********************
+
+-- Average salary per department for employees hired after 2020
+SELECT 
+    DepartmentID,
+    AVG(Salary) AS AvgSalary
+FROM Employees
+WHERE HireDate >= '2020-01-01'
+GROUP BY DepartmentID;
+
+-- Count employees by gender in Sales department
+SELECT 
+	Age,
+    COUNT(*) AS EmployeeCount
+FROM Employees
+WHERE DepartmentID = 1
+GROUP BY Age;
+
+-- **************** GROUP BY with Expressions ********************
+
+-- Group by age ranges 
+SELECT 
+	CASE
+		WHEN Age < 25 THEN 'Under 25'
+        WHEN Age BETWEEN 25 AND 35 THEN '25-35'
+        WHEN Age BETWEEN 35 AND 45 THEN '35-45'
+        ELSE 'Over 45'
+	END AS AgeGroup,
+    COUNT(*) AS EmployeeCount,
+    AVG(Salary) AS AvgSalary 
+FROM Employees
+GROUP BY 
+    CASE
+        WHEN Age < 25 THEN 'Under 25'
+        WHEN Age BETWEEN 25 AND 35 THEN '25-35'
+        WHEN Age BETWEEN 35 AND 45 THEN '35-45'
+        ELSE 'Over 45'
+    END
+ORDER BY AgeGroup;
+
+-- Group by year of hire
+SELECT 
+    YEAR(HireDate) AS HireYear,
+    COUNT(*) AS HiresCount
+FROM Employees
+GROUP BY YEAR(HireDate)
+ORDER BY HireYear;
 
 
 
