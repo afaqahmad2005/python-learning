@@ -514,6 +514,57 @@ GROUP BY YEAR(HireDate)
 ORDER BY HireYear;
 
 
+-- 📊 PART 3: HAVING
+
+-- Departments with more than 5 employees
+SELECT 
+	DepartmentID,
+    COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY DepartmentID
+HAVING COUNT(*) < 5;
+
+-- Departments with average salary > 5
+SELECT
+	DepartmentID,
+    AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING AVG(Salary) > 5000
+ORDER BY AvgSalary DESC;
+
+-- Using multiple conditions in having 
+SELECT
+	DepartmentID,
+    Age,
+    COUNT(*) AS Count,
+    AVG(Salary) AS AvgSalary
+FROM Employees
+GROUP BY DepartmentID, Age
+HAVING COUNT(*) <= 30 AND AVG(Salary) > 4000
+ORDER BY DepartmentID;
+
+-- Departments where total salary > 50000
+SELECT 
+	DepartmentID,
+    SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY DepartmentID
+HAVING SUM(Salary) > 50000;
+
+-- Complex HAVING with WHERE
+SELECT 
+    DepartmentID,
+    COUNT(*) AS Count,
+    AVG(Salary) AS AvgSalary
+FROM Employees
+WHERE HireDate >= '2020-01-01'  -- Filter rows first
+GROUP BY DepartmentID
+HAVING AVG(Salary) > 45000      -- Then filter groups
+ORDER BY AvgSalary DESC;
+
+
+
 
 
 
