@@ -564,6 +564,113 @@ HAVING AVG(Salary) > 45000      -- Then filter groups
 ORDER BY AvgSalary DESC;
 
 
+-- 📊 PART 4: JOINS
+
+-- Drop table if exists (optional)
+DROP TABLE IF EXISTS customers;
+
+-- Create customers table
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    address_id INT
+);
+
+-- Drop table if exists (optional)
+DROP TABLE IF EXISTS payments;
+
+-- Create payments table
+CREATE TABLE payments (
+    customer_id INT,
+    amount DECIMAL(10,2),
+    mode VARCHAR(50),
+    payment_date DATE
+);
+
+-- Insert customer data
+INSERT INTO customers (customer_id, first_name, last_name, email, address_id) VALUES
+(1, 'Mary', 'Smith', 'mary.smith@mailid.com', 5),
+(2, 'Patricia', 'Johnson', 'patricia.johnson@mailid.com', 6),
+(3, 'Madan', 'Mohan', 'madan.mohan@mailid.com', 7),
+(4, 'Barbara', 'Jones', 'barbara.jones@mailid.com', 8),
+(5, 'Elizabeth', 'Brown', 'elizabeth.brown@mailid.com', 9),
+(6, 'Jennifer', 'Davis', 'jennifer.davis@mailid.com', 10),
+(7, 'Maria', 'Miller', 'maria.miller@mailid.com', 11),
+(8, 'Susan', 'Wilson', 'susan.wilson@mailid.com', 12),
+(9, 'R', 'Madhav', 'r.madhav@mailid.com', 13),
+(10, 'Dorothy', 'Taylor', 'dorothy.taylor@mailid.com', 14),
+(11, 'Lisa', 'Anderson', 'lisa.anderson@mailid.com', 15),
+(12, 'Nancy', 'Thomas', 'nancy.thomas@mailid.com', 16),
+(13, 'Karen', 'Jackson', 'karen.jackson@mailid.com', 17),
+(14, 'Betty', 'White', 'betty.white@mailid.com', 18),
+(15, 'Helen', 'Harris', 'helen.harris@mailid.com', 19);
+
+-- Insert payment data
+INSERT INTO payments (customer_id, amount, mode, payment_date) VALUES
+(1, 60, 'Cash', '2020-09-24'),
+(2, 30, 'Credit Card', '2020-04-27'),
+(3, 90, 'Credit Card', '2020-07-07'),
+(4, 50, 'Debit Card', '2020-02-12'),  -- Fixed typo: "Debit Crad" → "Debit Card"
+(5, 40, 'Mobile Payment', '2020-11-20'),
+(6, 40, 'Debit Card', '2021-06-28'),   -- Fixed typo
+(7, 10, 'Cash', '2021-08-25'),
+(8, 30, 'Mobile Payment', '2021-06-17'),
+(9, 80, 'Cash', '2021-08-25'),
+(10, 50, 'Mobile Payment', '2021-11-03'),
+(11, 70, 'Cash', '2022-11-01'),
+(12, 60, 'Netbanking', '2022-09-11'),
+(13, 30, 'Netbanking', '2022-12-10'),
+(14, 50, 'Credit Card', '2022-05-14'),
+(15, 30, 'Credit Card', '2022-09-25');
+
+-- *************** 1. INNER JOIN ***************
+SELECT * FROM customers;
+SELECT * FROM payments;
+
+-- Matching Inner Join
+SELECT *
+FROM customers AS c
+INNER JOIN payments AS p
+ON c.customer_id = p.customer_id;
+
+SELECT 
+	c.first_name, p.amount, p.mode
+FROM customers c
+INNER JOIN payments p
+ON c.customer_id = p.customer_id;
+
+-- Matching Left Join 
+SELECT *
+FROM customers AS c
+LEFT JOIN payments AS p
+ON c.customer_id = p.customer_id;
+
+SELECT 
+	c.first_name, p.amount, p.mode
+FROM customers c
+LEFT JOIN payments p
+ON c.customer_id = p.customer_id;
+
+-- Matching Right Join 
+SELECT *
+FROM customers AS c
+RIGHT JOIN payments AS p
+ON c.customer_id = p.customer_id;
+
+SELECT 
+	c.first_name, p.amount, p.mode
+FROM customers c
+RIGHT JOIN payments p
+ON c.customer_id = p.customer_id;
+
+-- Matching FUll Outer Join 
+SELECT *
+FROM customers AS c
+FULL OUTER JOIN payments AS p
+ON c.customer_id = p.customer_id;
+
 
 
 
