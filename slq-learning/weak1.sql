@@ -672,6 +672,38 @@ FULL OUTER JOIN payments AS p
 ON c.customer_id = p.customer_id;
 
 
+CREATE TABLE student (
+id int NOT NULL,
+name VARCHAR(50)
+)
+
+INSERT INTO student (id, name)
+VALUES (1, "afaq");
+
+SELECT * FROM student;
+
+DROP TABLE student;
+
+
+-- Write a query to select all columns from the "employees" table.
+SELECT * FROM Employees;
+-- Write a query to select only the "first_name" and "last_name" columns from the "customers" table.
+SELECT first_name, last_name FROM customers;
+-- Write a query to display all columns from the "orders" table without actually seeing the table structure first.
+SELECT * FROM orders;
+-- Select all unique job titles from the "employees" table.
+SELECT DISTINCT(Salary) FROM Employees;
+-- Retrieve a list of distinct cities where customers live.
+SELECT distinct(last_name) FROM customers;
+-- Find all employees who's department ID is 1.
+SELECT * FROM Employees
+WHERE DepartmentID = 1;
+-- Show employees who were hired in the year 2021.
+SELECT * FROM Employees
+WHERE YEAR(HireDate) = 2023;
+
+
+
 
 
 
