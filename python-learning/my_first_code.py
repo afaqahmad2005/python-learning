@@ -35,3 +35,36 @@ if __name__ == "__main__":
         print(f"{i}. {fruit}")
     
     print("\n✨ Program completed successfully! ✨")
+
+
+# 1. VARIABLES & DATA TYPES (Storage Boxes)
+# Intergers (Whole Number)
+age = 25
+
+# Floats (Decimal Number)
+price = 19.99
+
+# Strings (Text)
+name = "Afaq "
+
+# Booleans (True/False)
+is_student = True
+
+# 2. CONTROL STRUCTURES (Decision Making)
+
+# IF-ELSE (Road Bumps)
+temperature = 30
+if temperature > 25:
+    print("Wear shorts")
+else:
+    print("Wear pants")
+
+# FOR LOOP (Shopping List)
+# Method 1: Going thriugh each item
+fruits = ["Apple", "Banana", "Cherry"]
+for fruit in fruits:
+    print(f"I ate {fruit}")
+
+# Method 2: Using index
+for i in range(5):
+    print("Hello, World!")
