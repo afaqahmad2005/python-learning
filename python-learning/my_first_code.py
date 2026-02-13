@@ -68,3 +68,10 @@ for fruit in fruits:
 # Method 2: Using index
 for i in range(5):
     print("Hello, World!")
+
+# WHILE LOOP (Waiting for Bus)
+buses_passes = 0
+while buses_passes < 3:
+    print(f"Bus {buses_passes + 1} passes, still waiting...")
+    buses_passes = buses_passes + 1
+print("Fially got on the bus")
